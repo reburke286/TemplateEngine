@@ -1,3 +1,7 @@
+const employeeTemplate = require("./employeeTemplate");
+
+const htmlGenerator = employees => {
+  return `
 <!DOCTYPE html>
     <html lang="en">
       <head>
@@ -9,7 +13,26 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <title>My Team</title>
         <style>
-        
+           h1 {
+                color: white;
+                text-align: center;
+            }
+            h6 {
+                color: white;
+            }
+            p {
+                color: black;
+                border: gray 1px solid;
+                border-radius: 5px;
+                padding: 5px;
+                margin: 0px;
+                background-color: white;
+            }
+            .card-body {
+                background-color: lightgray;
+
+            }
+          
         </style>
         <body>
             <div class="jumbotron jumbotron-fluid bg-danger">
@@ -17,5 +40,12 @@
                   <h1 class="display-4">My Team</h1>
                 </div>
               </div>
+            <div class="row">
+            ${employees.map(employee => employeeTemplate(employee))}
+               
         </body>
-        </html>
+    </html>
+`;
+};
+
+module.exports = htmlGenerator;
