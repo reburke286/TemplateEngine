@@ -12,7 +12,7 @@ const engineerQuestions = [
   },
   {
     type: "input",
-    name: "engOffice",
+    name: "engGithub",
     message: "What is your engineer's github?"
   }
 ];

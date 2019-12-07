@@ -8,21 +8,6 @@ const Intern = require("./lib/Intern");
 const htmlGenerator = require("./templates/main");
 const writeFileAsync = util.promisify(fs.writeFile);
 
-const managerPrompt = () => {
-  return inquirer.prompt(questions.managerQuestions);
-};
-
-const whichEmployee = () => {
-  return inquirer.prompt(questions.whichEmp);
-};
-
-const employeePrompt = employeeType => {
-  if (employeeType === "intern") {
-    return questions.internQuestions;
-  }
-  return questions.engineerQuestions;
-};
-
 async function awaitedPromptUser() {
   const managerAnswers = await inquirer.prompt(questions.managerQuestions);
 
@@ -32,17 +17,17 @@ async function awaitedPromptUser() {
     managerAnswers.manEmail,
     managerAnswers.manOffice
   );
+  console.log(manager);
 
   const numInterns = managerAnswers.howManyInterns;
-  // if (typeOf(numInterns) !== "number") {
-  //   console.log("Please enter a number");
-  // }
+  if (typeof numInterns !== "number") {
+    console.log("Please enter a number");
+  }
   const internAnswers = [];
   for (i = 0; i < numInterns; i++) {
     const internAnswer = await inquirer.prompt(questions.internQuestions);
     internAnswers.push(internAnswer);
   }
-  console.log("interns", internAnswers);
   const interns = internAnswers.map(internAnswer => {
     return new Intern(
       internAnswer.internName,
@@ -51,15 +36,15 @@ async function awaitedPromptUser() {
       internAnswer.internSchool
     );
   });
+  console.log("interns", internAnswers);
   const howManyEngineers = await inquirer.prompt(
     questions.inputHowManyEngineers
   );
   const numOfEngineers = howManyEngineers.howManyEng;
-  console.log(numOfEngineers);
 
-  // if (typeOf(numOfEngineers) !== "number") {
-  //   console.log("Please enter a number");
-  // }
+  if (typeof numOfEngineers !== "number") {
+    console.log("Please enter a number");
+  }
   const engineerAnswers = [];
   for (i = 0; i < numOfEngineers; i++) {
     const engineerAnswer = await inquirer.prompt(questions.engineerQuestions);

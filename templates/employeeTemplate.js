@@ -1,12 +1,27 @@
-// const getFourthElement = employee => {
-//   switch (employee.getRole()) {
-//     case "Engineer":
-//       return { title: "Github", value: employee.github };
-//   }
-// };
+const getFourthElement = employee => {
+  let fourthElement = "";
+  //   switch (employee.getRole()) {
+  //     case "Engineer":
+  //       return { title: "Github: ", value: employee.github };
+  //       break;
+  //     case "Intern":
+  //       return { title: "School: ", value: employee.school };
+  //       break;
+  //     case "Manager":
+  //       return { title: "Office Number: ", value: employee.OfficeNumber };
+  //   }
+  if (employee.getRole() === "Engineer") {
+    fourthElement = `Github:${employee.github}`;
+  } else if (employee.getRole() === "Intern") {
+    fourthElement = `School: ${employee.getSchool()}`;
+  } else {
+    fourthElement = `Office Number: ${employee.getOfficeNumber()}`;
+  }
+  return fourthElement;
+};
 
-function employeeTemplate(employee) {
-  //   const fourthElement = getFourthElement(employee);
+const employeeTemplate = employee => {
+  const fourthElementInput = getFourthElement(employee);
   return `<div class="col">
 <div class="container">
     <div class="card text-white mb-3" style="max-width: 18rem;">
@@ -17,12 +32,13 @@ function employeeTemplate(employee) {
             <div class="card-body">
             <p class="card-text">ID: ${employee.id}</p>
             <p class="card-text">Email: ${employee.email}</p>
+            <p class="card-text">${fourthElementInput}</p>
            
             </div>
     </div>
 </div>
 </div>
 `;
-}
+};
 
 module.exports = employeeTemplate;
