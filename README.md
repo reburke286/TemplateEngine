@@ -1,6 +1,8 @@
 # TemplateEngine
 
-You will build a software engineering team generator command line application. The application will prompt the user for information about the team manager and then information about the team members. The user can input any number of team members, and they may be a mix of engineers and interns. This assignment must also pass all unit tests. When the user has completed building the team, the application will create an HTML file that displays a nicely formatted team roster based on the information provided by the user. 
+Instructions
+
+You will build a software engineering team generator command line application. The application will prompt the user for information about the team manager and then information about the team members. The user can input any number of team members, and they may be a mix of engineers and interns. This assignment must also pass all unit tests. When the user has completed building the team, the application will create an HTML file that displays a nicely formatted team roster based on the information provided by the user.
 
 Code Breakdown:
 
@@ -47,3 +49,26 @@ Output
    Role
    ID
    Role-specific property (School, link to GitHub profile, or office number)
+
+Description: This application allows user to build their employee page using command line interface and Inquirer Prompts. After you submit your data the program will generate an html page with the team employee cards. We use classes to instantiate different types of employees: manager, engineer, and intern.
+
+Installation: You will need Node.js, along with the following Node packages: fs-extra, util, and inquirer.
+
+Usage: This is for a software company so they can easily generate a team page.
+
+Credits:
+
+getbootstrap.com
+Node
+Inquirer
+Util
+FS-extra
+Jest
+
+License: n/a
+
+Badges: n/a
+
+Contributing: n/a
+
+Tests: I use jest to confirm that the class and subclasses run correctly.
