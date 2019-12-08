@@ -1,15 +1,6 @@
 const getFourthElement = employee => {
   let fourthElement = "";
-  //   switch (employee.getRole()) {
-  //     case "Engineer":
-  //       return { title: "Github: ", value: employee.github };
-  //       break;
-  //     case "Intern":
-  //       return { title: "School: ", value: employee.school };
-  //       break;
-  //     case "Manager":
-  //       return { title: "Office Number: ", value: employee.OfficeNumber };
-  //   }
+
   if (employee.getRole() === "Engineer") {
     fourthElement = `Github:${employee.github}`;
   } else if (employee.getRole() === "Intern") {
@@ -30,6 +21,7 @@ const employeeTemplate = employee => {
                 <h6 class="card-subtitle mb-2">${employee.getRole()}</h6>
             </div>
             <div class="card-body">
+            <row c
             <p class="card-text">ID: ${employee.id}</p>
             <p class="card-text">Email: ${employee.email}</p>
             <p class="card-text">${fourthElementInput}</p>

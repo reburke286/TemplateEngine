@@ -1,6 +1,14 @@
 const employeeTemplate = require("./employeeTemplate");
 
 const htmlGenerator = employees => {
+  console.log(employees);
+  for (let i = 0; i < employees.length; i++) {
+    if (employees[i] % 3 === 0) {
+      `<div class="row">
+      ${employees.map(employee => employeeTemplate(employee))}`;
+    }
+  }
+
   return `
 <!DOCTYPE html>
     <html lang="en">
@@ -41,7 +49,7 @@ const htmlGenerator = employees => {
                 </div>
               </div>
             <div class="row">
-            ${employees.map(employee => employeeTemplate(employee))}
+            ${employees.map(employee => employeeTemplate(employee)).join(" ")}
                
         </body>
     </html>

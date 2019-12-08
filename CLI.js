@@ -5,7 +5,7 @@ const questions = require("./questions.js");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
-const htmlGenerator = require("./templates/main");
+const htmlGenerator = require("./Generators/main");
 const writeFileAsync = util.promisify(fs.writeFile);
 
 async function awaitedPromptUser() {
@@ -17,10 +17,9 @@ async function awaitedPromptUser() {
     managerAnswers.manEmail,
     managerAnswers.manOffice
   );
-  console.log(manager);
 
   const numInterns = managerAnswers.howManyInterns;
-  if (typeof numInterns !== "number") {
+  if (isNaN(numInterns)) {
     console.log("Please enter a number");
   }
   const internAnswers = [];
@@ -36,13 +35,13 @@ async function awaitedPromptUser() {
       internAnswer.internSchool
     );
   });
-  console.log("interns", internAnswers);
+
   const howManyEngineers = await inquirer.prompt(
     questions.inputHowManyEngineers
   );
   const numOfEngineers = howManyEngineers.howManyEng;
 
-  if (typeof numOfEngineers !== "number") {
+  if (isNaN(numOfEngineers)) {
     console.log("Please enter a number");
   }
   const engineerAnswers = [];
@@ -50,7 +49,6 @@ async function awaitedPromptUser() {
     const engineerAnswer = await inquirer.prompt(questions.engineerQuestions);
     engineerAnswers.push(engineerAnswer);
   }
-  console.log("engineers", engineerAnswers);
   const engineers = engineerAnswers.map(engineerAnswer => {
     return new Engineer(
       engineerAnswer.engName,
@@ -63,58 +61,5 @@ async function awaitedPromptUser() {
   const html = htmlGenerator([manager, ...interns, ...engineers]);
   await writeFileAsync("index.html", html);
 }
-
-async function promptUserForEngineer() {
-  const howManyEngineers = await inquirer.prompt(
-    questions.inputHowManyEngineers
-  );
-  const numOfEngineers = howManyEngineers.howManyEng;
-  console.log(numOfEngineers);
-
-  // if (typeOf(numOfEngineers) !== "number") {
-  //   console.log("Please enter a number");
-  // }
-  const engineerAnswers = [];
-  for (i = 0; i < numOfEngineers; i++) {
-    const engineerAnswer = await inquirer.prompt(questions.engineerQuestions);
-    engineerAnswers.push(engineerAnswer);
-  }
-  console.log("engineers", engineerAnswers);
-  const engineers = engineerAnswers.map(engineerAnswer => {
-    return new Engineer(
-      engineerAnswer.engineerName,
-      engineerAnswer.engineerID,
-      engineerAnswer.engineerEmail,
-      engineerAnswer.engineerGithub
-    );
-  });
-  return inquirer.prompt(questions.engineerQuestions).then(answers => {});
-}
-
-function promptUserForManager() {
-  return inquirer.prompt(questions.managerQuestions).then(answers => {
-    const manager = new Manager(
-      answers.manName,
-      answers.manID,
-      answers.manEmail,
-      answers.manOffice
-    );
-    console.log(manager);
-    inquirer.prompt(questions.whichEmp).then(whichEmployee => {
-      if (whichEmployee === "intern") {
-        return questions.internQuestions;
-      }
-      return questions.engineerQuestions;
-    });
-    const html = htmlGenerator([manager]);
-    return writeFileAsync("index.html", html);
-  });
-}
-
-//how to run prompts to correctly capture which employee
-//and how to run until user wants to stop
-//how to get data cards into even rows of three
-//modulus ? if 0, open, if 3 close is one idea
-// partioning array is also an idea
 
 awaitedPromptUser();
